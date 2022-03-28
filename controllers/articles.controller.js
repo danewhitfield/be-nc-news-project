@@ -19,5 +19,8 @@ exports.updateVotesByArticleId = (req, res, next) => {
     .then((article) => {
       res.status(201).send({ article: article });
     })
-    .catch(next);
+    .catch((err) => {
+      //   console.log("err:", err);
+      next(err);
+    });
 };
