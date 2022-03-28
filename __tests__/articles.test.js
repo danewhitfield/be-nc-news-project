@@ -72,24 +72,33 @@ describe.only("PATCH /api/articles/:article_id", () => {
     });
   });
 
-  //   describe("UNHAPPY PATH", () => {
-  //     it("404: not found - if article_id doesn't exist", () => {
-  //       return request(app)
-  //         .patch("/api/articles/57")
-  //         .send({ inc_votes: 26 })
-  //         .expect(404)
-  //         .then((res) => {
-  //           expect(res.body).toMatchObject({ msg: "not found!" });
-  //         });
-  //     });
-  //     it("400: bad request - if article_id is invalid", () => {
-  //       return request(app)
-  //         .patch("/api/articles/fiftyseven")
-  //         .send({ inc_votes: 26 })
-  //         .expect(400)
-  //         .then((res) => {
-  //           expect(res.body).toMatchObject({ msg: "bad request!" });
-  //         });
-  //     });
-  //   });
+  describe("UNHAPPY PATH", () => {
+    it("404: not found - if article_id doesn't exist", () => {
+      return request(app)
+        .patch("/api/articles/57")
+        .send({ inc_votes: 26 })
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
+        });
+    });
+    it("400: bad request - if article_id is invalid", () => {
+      return request(app)
+        .patch("/api/articles/fiftyseven")
+        .send({ inc_votes: 26 })
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "bad request!" });
+        });
+    });
+    it("400: bad request - if inc_votes is invalid", () => {
+      return request(app)
+        .patch("/api/articles/1")
+        .send({ inc_votes: "wrong" })
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "bad request!" });
+        });
+    });
+  });
 });
