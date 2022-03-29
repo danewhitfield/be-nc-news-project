@@ -248,3 +248,74 @@ describe("GET /api/articles", () => {
     });
   });
 });
+
+// POST COMMENTS
+describe("POST /api/articles/:article_id/comments", () => {
+  describe("HAPPY PATH", () => {
+    it("returns the posted comment", () => {
+      return request(app)
+        .post("/api/articles/2/comments")
+        .send({
+          username: "icellusedkars",
+          body: "My code is broken.",
+        })
+        .expect(201)
+        .then((res) => {
+          const comment = {
+            comment_id: 19,
+            body: "My code is broken.",
+            article_id: 2,
+            author: "icellusedkars",
+            votes: 0,
+            created_at: expect.any(String),
+          };
+
+          expect(res.body).toMatchObject(comment);
+        });
+    });
+  });
+
+  describe("UNHAPPY PATH", () => {
+    it("404: not found - if article_id doesn't exist", () => {
+      return request(app)
+        .post("/api/articles/57/comments")
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
+        });
+    });
+    it("404: not found - if author doesn't exist", () => {
+      return request(app)
+        .post("/api/articles/2/comments")
+        .send({
+          username: "daneIsNotAnAuthor",
+          body: "My code might not be broken afterall.",
+        })
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
+        });
+    });
+    it("400: bad request - if endpoint is invalid", () => {
+      return request(app)
+        .post("/api/articles/notAnId/comments")
+        .send({
+          username: "daneIsNotAnAuthor",
+          body: "My code might not be broken afterall.",
+        })
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "bad request!" });
+        });
+    });
+    it("400: bad request - if req.body is empty", () => {
+      return request(app)
+        .post("/api/articles/notAnId/comments")
+        .send({})
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "bad request!" });
+        });
+    });
+  });
+});
