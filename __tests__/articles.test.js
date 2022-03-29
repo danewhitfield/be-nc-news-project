@@ -99,3 +99,52 @@ describe("PATCH /api/articles/:article_id", () => {
     });
   });
 });
+
+describe("GET /api/articles", () => {
+  describe("HAPPY PATH", () => {
+    it("returns an array", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toBeInstanceOf(Array);
+        });
+    });
+    it("ensures objects have relevant keys", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toBeInstanceOf(Array);
+          res.body.forEach((article) => {
+            expect(article).toEqual(
+              expect.objectContaining({
+                article_id: expect.any(Number),
+                title: expect.any(String),
+                topic: expect.any(String),
+                author: expect.any(String),
+                body: expect.any(String),
+                created_at: expect.any(String),
+                votes: expect.any(Number),
+                comment_count: expect.any(Number),
+              })
+            );
+          });
+        });
+    });
+  });
+
+  describe("UNHAPPY PATH", () => {
+    it("404: not found - if endpoint isn't found", () => {
+      return request(app)
+        .get("/api/artikuls")
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
+        });
+    });
+  });
+});
+
+// I couldn't think of an essential unhappy path for this one as it shares a lot of the same logic from previous models.
+// I can test for an empty array but that will never be the case given that the data is always something.
