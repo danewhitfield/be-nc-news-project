@@ -155,6 +155,15 @@ describe("GET /api/articles", () => {
           expect(res.body).toBeInstanceOf(Array);
         });
     });
+    it("ordered by date in DESC order", () => {
+      return request(app)
+        .get("/api/articles")
+        .expect(200)
+        .then((res) => {
+          console.log(res.body, "<<< RES.BODY TEST");
+          expect(res.body).toBeSortedBy("created_at", { descending: true });
+        });
+    });
     it("ensures objects have relevant keys", () => {
       return request(app)
         .get("/api/articles")
@@ -168,7 +177,6 @@ describe("GET /api/articles", () => {
                 title: expect.any(String),
                 topic: expect.any(String),
                 author: expect.any(String),
-                body: expect.any(String),
                 created_at: expect.any(String),
                 votes: expect.any(Number),
                 comment_count: expect.any(Number),

@@ -26,7 +26,7 @@ exports.updateVotesByArticleId = (req, res, next) => {
     });
 };
 
-exports.getArticles = (req, res) => {
+exports.getArticles = (req, res, next) => {
   findArticles()
     .then((articles) => {
       res.status(200).send(articles);
