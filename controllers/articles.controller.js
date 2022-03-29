@@ -1,6 +1,7 @@
 const {
   findArticleById,
   changeVotesByArticleId,
+  createComment,
 } = require("../models/articles.model");
 
 exports.getArticleById = (req, res, next) => {
@@ -21,6 +22,18 @@ exports.updateVotesByArticleId = (req, res, next) => {
     })
     .catch((err) => {
       //   console.log("err:", err);
+      next(err);
+    });
+};
+
+exports.postComment = (req, res, next) => {
+  const { author, body } = req.body;
+  const { article_id } = req.params;
+  createComment(article_id, author, body)
+    .then((comment) => {
+      res.status(201).send(comment);
+    })
+    .catch((err) => {
       next(err);
     });
 };
