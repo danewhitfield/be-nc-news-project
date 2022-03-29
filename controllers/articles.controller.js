@@ -1,6 +1,7 @@
 const {
   findArticleById,
   changeVotesByArticleId,
+  findArticles,
   findComments,
 } = require("../models/articles.model");
 
@@ -22,6 +23,16 @@ exports.updateVotesByArticleId = (req, res, next) => {
     })
     .catch((err) => {
       //   console.log("err:", err);
+      next(err);
+    });
+};
+
+exports.getArticles = (req, res, next) => {
+  findArticles()
+    .then((articles) => {
+      res.status(200).send(articles);
+})
+    .catch((err) => {
       next(err);
     });
 };

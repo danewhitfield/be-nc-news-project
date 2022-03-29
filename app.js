@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getArticleById,
   updateVotesByArticleId,
+  getArticles,
   getComments,
 } = require("./controllers/articles.controller");
 const { getTopics } = require("./controllers/topics.controller");
@@ -14,6 +15,7 @@ app.use(express.json());
 app.get("/api/topics", getTopics);
 app.get("/api/articles/:article_id", getArticleById);
 app.get("/api/users", getUsers);
+app.get("/api/articles", getArticles);
 app.get("/api/articles/:article_id/comments", getComments);
 
 // PATCH
@@ -43,6 +45,7 @@ app.use((err, req, res, next) => {
 
 // app.use((err, req, res, next) => {
 //   res.status(400).send({ msg: "bad request!" });
+//   next(err);
 // });
 
 // DEFAULT
