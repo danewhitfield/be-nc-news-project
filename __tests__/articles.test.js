@@ -183,10 +183,70 @@ describe("GET /api/articles", () => {
               })
             );
           });
+      })
+    })
+  })
+        
+        
+// I couldn't think of an essential unhappy path for this one as it shares a lot of the same logic from previous models.
+// I can test for an empty array but that will never be the case given that the data is always something.
+
+describe.only("GET /api/articles/:article_id/comments", () => {
+  describe("HAPPY PATH", () => {
+    it("returns an array of comments for the article_id - with the relevant keys", () => {
+      return request(app)
+        .get("/api/articles/3/comments")
+        .expect(200)
+        .then((res) => {
+          const comments = [
+            {
+              comment_id: 10,
+              body: "git push origin master",
+              article_id: 3,
+              author: "icellusedkars",
+              votes: 0,
+              created_at: expect.any(String),
+            },
+            {
+              comment_id: 11,
+              body: "Ambidextrous marsupial",
+              article_id: 3,
+              author: "icellusedkars",
+              votes: 0,
+              created_at: expect.any(String),
+            },
+          ];
+
+          expect(res.body).toMatchObject(comments);
+        });
+    });
+  });
+
+  describe("UNHAPPY PATH", () => {
+    it("404: not found - if article_id doesn't exist", () => {
+      return request(app)
+        .get("/api/articles/57/comments")
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
+        });
+    });
+    it("400: bad request - if article_id is invalid", () => {
+      return request(app)
+        .get("/api/articles/fiftyseven/comments")
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "bad request!" });
+        });
+    });
+    it("404: not found - if endpoint doesn't exist but is valid", () => {
+      return request(app)
+        .get("/api/articles/3/cementas")
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
         });
     });
   });
 });
 
-// I couldn't think of an essential unhappy path for this one as it shares a lot of the same logic from previous models.
-// I can test for an empty array but that will never be the case given that the data is always something.
