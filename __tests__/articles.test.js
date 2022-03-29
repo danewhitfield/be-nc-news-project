@@ -136,3 +136,53 @@ describe("GET /api/articles/:article_id (comment_count)", () => {
 });
 
 // There should be no errors if passed a valid ID with the wrong content, the comment count should just appear as 0 which is accounted for
+
+// POST COMMENTS
+describe("POST /api/articles/:article_id/comments", () => {
+  describe("HAPPY PATH", () => {
+    it("returns the posted comment", () => {
+      return request(app)
+        .post("/api/articles/2/comments")
+        .send({
+          author: "icellusedkars",
+          body: "My code is broken.",
+        })
+        .expect(201)
+        .then((res) => {
+          const comment = {
+            comment_id: 19,
+            body: "My code is broken.",
+            article_id: 2,
+            author: "icellusedkars",
+            votes: 0,
+            created_at: expect.any(String),
+          };
+
+          expect(res.body).toMatchObject(comment);
+        });
+    });
+  });
+
+  describe("UNHAPPY PATH", () => {
+    it("404: not found - if article_id doesn't exist", () => {
+      return request(app)
+        .post("/api/articles/57")
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
+        });
+    });
+    it("404: not found - if author doesn't exist", () => {
+      return request(app)
+        .post("/api/articles/2/comments")
+        .send({
+          author: "daneIsNotAnAuthor",
+          body: "My code might not be broken afterall.",
+        })
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "bad request!" });
+        });
+    });
+  });
+});
