@@ -25,3 +25,19 @@ exports.changeVotesByArticleId = (article_id, inc_votes) => {
       return result.rows[0];
     });
 };
+
+exports.findArticles = () => {
+  return db
+    .query(
+      `SELECT articles.*, COUNT(comments.comment_id)::INT AS comment_count FROM articles
+     LEFT JOIN comments 
+     ON comments.article_id = articles.article_id 
+     GROUP BY articles.article_id;`
+    )
+    .then((result) => {
+      if (result.rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "not found!" });
+      }
+      return result.rows;
+    });
+};
