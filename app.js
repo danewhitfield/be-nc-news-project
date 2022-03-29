@@ -28,11 +28,21 @@ app.use((req, res, next) => {
 
 // PG ERROR HANDLERS
 app.use((err, req, res, next) => {
-  let badReqs = ["23503", "22P02"];
+  let badReqs = ["22P02"];
   if (badReqs.includes(err.code)) {
     res.status(400).send({ msg: "bad request!" });
+  } else {
+    next(err);
   }
-  next(err);
+});
+
+app.use((err, req, res, next) => {
+  let badReqs = ["23502", "23503"];
+  if (badReqs.includes(err.code)) {
+    res.status(404).send({ msg: "not found!" });
+  } else {
+    next(err);
+  }
 });
 
 // CUSTOM HANDLER

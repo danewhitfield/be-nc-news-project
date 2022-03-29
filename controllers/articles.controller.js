@@ -27,9 +27,9 @@ exports.updateVotesByArticleId = (req, res, next) => {
 };
 
 exports.postComment = (req, res, next) => {
-  const { author, body } = req.body;
+  const { username, body } = req.body;
   const { article_id } = req.params;
-  createComment(article_id, author, body)
+  createComment(article_id, username, body)
     .then((comment) => {
       res.status(201).send(comment);
     })
