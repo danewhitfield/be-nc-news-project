@@ -33,6 +33,34 @@ exports.changeVotesByArticleId = (article_id, inc_votes) => {
     });
 };
 
+exports.findArticles = () => {
+  return db
+    .query(
+      `SELECT articles.article_id, articles.title, articles.author, articles.topic, articles.created_at, articles.votes, COUNT(comments.comment_id)::INT AS comment_count FROM articles
+     JOIN comments 
+     ON comments.article_id = articles.article_id
+     GROUP BY articles.article_id
+     ORDER BY articles.created_at DESC;`
+    ).then((result) => {
+      if (result.rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "not found!" });
+      }
+      return result.rows;
+    });
+};
+
+  
+exports.findComments = (article_id) => {
+  return db
+    .query(`SELECT * FROM comments WHERE article_id = $1`, [article_id])
+    .then((result) => {
+      if (result.rows.length === 0) {
+        return Promise.reject({ status: 404, msg: "not found!" });
+      }
+      return result.rows;
+    });
+};
+
 exports.createComment = (article_id, username, body) => {
   return db
     .query(
@@ -43,8 +71,7 @@ exports.createComment = (article_id, username, body) => {
   ($1, $2, $3)
   RETURNING *`,
       [article_id, username, body]
-    )
-    .then((result) => {
+    ).then((result) => {
       if (result.rows.length === 0) {
         return Promise.reject({ status: 404, msg: "not found!" });
       }

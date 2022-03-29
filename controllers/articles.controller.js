@@ -2,6 +2,8 @@ const {
   findArticleById,
   changeVotesByArticleId,
   createComment,
+  findArticles,
+  findComments,
 } = require("../models/articles.model");
 
 exports.getArticleById = (req, res, next) => {
@@ -26,13 +28,34 @@ exports.updateVotesByArticleId = (req, res, next) => {
     });
 };
 
+exports.getArticles = (req, res, next) => {
+  findArticles()
+    .then((articles) => {
+      res.status(200).send(articles);
+})
+    .catch((err) => {
+      next(err);
+    });
+};
+
+exports.getComments = (req, res, next) => {
+  const { article_id } = req.params;
+  findComments(article_id)
+    .then((comments) => {
+      res.status(200).send(comments);
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
 exports.postComment = (req, res, next) => {
   const { author, body } = req.body;
   const { article_id } = req.params;
   createComment(article_id, author, body)
     .then((comment) => {
       res.status(201).send(comment);
-    })
+})
     .catch((err) => {
       next(err);
     });
