@@ -4,9 +4,6 @@ const testData = require("../db/data/test-data");
 const app = require("../app");
 const seed = require("../db/seeds/seed");
 
-afterAll(() => db.end());
-beforeEach(() => seed(testData));
-
 describe("GET /api/topics", () => {
   it("returns an array of objects with description and slug", () => {
     return request(app)

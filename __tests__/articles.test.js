@@ -4,9 +4,6 @@ const testData = require("../db/data/test-data");
 const app = require("../app");
 const seed = require("../db/seeds/seed");
 
-afterAll(() => db.end());
-beforeEach(() => seed(testData));
-
 describe("GET /api/articles/:article_id", () => {
   describe("HAPPY PATH", () => {
     it("returns an article object with relevant keys", () => {
@@ -49,7 +46,7 @@ describe("GET /api/articles/:article_id", () => {
   });
 });
 
-describe.only("PATCH /api/articles/:article_id", () => {
+describe("PATCH /api/articles/:article_id", () => {
   describe("HAPPY PATH", () => {
     it("returns an article object with the updated votes", () => {
       return request(app)
