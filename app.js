@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getArticleById,
   updateVotesByArticleId,
+  postComment,
 } = require("./controllers/articles.controller");
 const { getTopics } = require("./controllers/topics.controller");
 const { getUsers } = require("./controllers/users.controller");
@@ -17,6 +18,9 @@ app.get("/api/users", getUsers);
 // PATCH
 app.patch("/api/articles/:article_id", updateVotesByArticleId);
 
+// POST
+app.post("/api/articles/:article_id/comments", postComment);
+
 // GENERIC HANDLER
 app.use((req, res, next) => {
   res.status(404).send({ msg: "not found!" });
@@ -24,7 +28,8 @@ app.use((req, res, next) => {
 
 // PG ERROR HANDLERS
 app.use((err, req, res, next) => {
-  if (err.code === "22P02") {
+  let badReqs = ["23503", "22P02"];
+  if (badReqs.includes(err.code)) {
     res.status(400).send({ msg: "bad request!" });
   }
   next(err);
@@ -35,7 +40,7 @@ app.use((err, req, res, next) => {
   if (err.msg && err.status) {
     res.status(err.status).send({ msg: err.msg });
   }
-  console.log(err);
+  // console.log(err);
   next(err);
 });
 
