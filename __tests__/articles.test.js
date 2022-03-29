@@ -100,6 +100,52 @@ describe("PATCH /api/articles/:article_id", () => {
   });
 });
 
+
+describe("GET /api/articles/:article_id (comment_count)", () => {
+  describe("HAPPY PATH", () => {
+    it("returns an article with an added comment_count", () => {
+      return request(app)
+        .get("/api/articles/1")
+        .expect(200)
+        .then((res) => {
+          const article = {
+            article_id: 1,
+            title: "Living in the shadow of a great man",
+            topic: "mitch",
+            author: "butter_bridge",
+            body: "I find this existence challenging",
+            created_at: expect.any(String),
+            votes: 100,
+            comment_count: 11,
+          };
+
+          expect(res.body).toMatchObject({ article: article });
+      })
+    })
+  })
+
+  describe("UNHAPPY PATH", () => {
+    it("404: not found - if endpoint isn't found", () => {
+      return request(app)
+        .get("/api/artikuls")
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: 'not found!' })
+      })
+    })
+    it("404: not found - if article_id doesn't exist", () => {
+      return request(app)
+        .get("/api/articles/57")
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
+        });
+    });
+  });
+});
+    
+    // There should be no errors if passed a valid ID with the wrong content, the comment count should just appear as 0 which is accounted for
+
 describe("GET /api/articles", () => {
   describe("HAPPY PATH", () => {
     it("returns an array", () => {
@@ -130,21 +176,13 @@ describe("GET /api/articles", () => {
               })
             );
           });
-        });
-    });
-  });
 
-  describe("UNHAPPY PATH", () => {
-    it("404: not found - if endpoint isn't found", () => {
-      return request(app)
-        .get("/api/artikuls")
-        .expect(404)
-        .then((res) => {
-          expect(res.body).toMatchObject({ msg: "not found!" });
         });
     });
   });
-});
+  
+  
 
 // I couldn't think of an essential unhappy path for this one as it shares a lot of the same logic from previous models.
 // I can test for an empty array but that will never be the case given that the data is always something.
+
