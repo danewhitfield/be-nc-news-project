@@ -41,7 +41,8 @@ exports.findArticles = () => {
      ON comments.article_id = articles.article_id
      GROUP BY articles.article_id
      ORDER BY articles.created_at DESC;`
-    ).then((result) => {
+    )
+    .then((result) => {
       if (result.rows.length === 0) {
         return Promise.reject({ status: 404, msg: "not found!" });
       }
@@ -49,7 +50,6 @@ exports.findArticles = () => {
     });
 };
 
-  
 exports.findComments = (article_id) => {
   return db
     .query(`SELECT * FROM comments WHERE article_id = $1`, [article_id])
@@ -71,7 +71,8 @@ exports.createComment = (article_id, username, body) => {
   ($1, $2, $3)
   RETURNING *`,
       [article_id, username, body]
-    ).then((result) => {
+    )
+    .then((result) => {
       if (result.rows.length === 0) {
         return Promise.reject({ status: 404, msg: "not found!" });
       }

@@ -145,7 +145,6 @@ describe("GET /api/articles/:article_id (comment_count)", () => {
 
 // There should be no errors if passed a valid ID with the wrong content, the comment count should just appear as 0 which is accounted for
 
-
 describe("GET /api/articles", () => {
   describe("HAPPY PATH", () => {
     it("returns an array", () => {
@@ -319,5 +318,4 @@ describe("POST /api/articles/:article_id/comments", () => {
         });
     });
   });
-})
-})
+});
