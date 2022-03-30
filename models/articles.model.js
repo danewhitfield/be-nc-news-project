@@ -39,11 +39,7 @@ exports.findArticles = (sort_by = "created_at", order = "DESC", topic) => {
   const validOrder = ["asc", "desc", "ASC", "DESC"];
   const validTopics = ["mitch", "cats", "paper"];
 
-  if (!validSortBy.includes(sort_by)) {
-    return Promise.reject({ status: 400, msg: "bad request!" });
-  }
-
-  if (!validOrder.includes(order)) {
+  if (!validSortBy.includes(sort_by) || !validOrder.includes(order)) {
     return Promise.reject({ status: 400, msg: "bad request!" });
   }
 
