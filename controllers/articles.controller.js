@@ -32,7 +32,7 @@ exports.getArticles = (req, res, next) => {
   findArticles()
     .then((articles) => {
       res.status(200).send(articles);
-})
+    })
     .catch((err) => {
       next(err);
     });
@@ -55,7 +55,7 @@ exports.postComment = (req, res, next) => {
   createComment(article_id, username, body)
     .then((comment) => {
       res.status(201).send(comment);
-})
+    })
     .catch((err) => {
       next(err);
     });
