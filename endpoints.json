@@ -43,6 +43,7 @@
   "PATCH /api/articles/:article_id": {
     "description": "updates the vote count specific to the article_id",
     "queries": ["article_id", "inc_votes = 26"],
+    "request-body": { "inc_votes": 26 },
     "exampleResponse": {
       "articles": [
         {
@@ -140,6 +141,10 @@
   "POST /api/articles/:article_id/comments": {
     "description": "accepts a username and comment body to add a new comment",
     "queries": ["article_id", "comments"],
+    "request-body": {
+      "username": "icellusedkars",
+      "body": "My code is broken."
+    },
     "exampleResponse": {
       "articles": [
         {
