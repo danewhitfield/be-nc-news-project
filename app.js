@@ -41,7 +41,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  let badReqs = ["23502", "23503"];
+  let badReqs = ["23502", "23503", "42703"];
   if (badReqs.includes(err.code)) {
     res.status(404).send({ msg: "not found!" });
   } else {
@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
   if (err.msg && err.status) {
     res.status(err.status).send({ msg: err.msg });
   }
-  // console.log(err);
+  console.log(err);
   next(err);
 });
 

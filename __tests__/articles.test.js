@@ -319,3 +319,82 @@ describe("POST /api/articles/:article_id/comments", () => {
     });
   });
 });
+
+// GET QUERIES
+describe("GET /api/articles?queries", () => {
+  describe("HAPPY PATH", () => {
+    it("returns an array of articles with a sort_by query which works for any valid column defaulting to descending", () => {
+      return request(app)
+        .get("/api/articles?sort_by=votes")
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toBeInstanceOf(Array);
+          expect(res.body).toBeSortedBy("votes", { descending: true });
+        });
+    });
+    it("returns an array of articles with a sort_by query which works for any valid column defaulting to descending", () => {
+      return request(app)
+        .get("/api/articles?sort_by=article_id")
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toBeSortedBy("article_id", { descending: true });
+        });
+    });
+    it("returns an array of articles ordered by ASC or DESC from the users query", () => {
+      return request(app)
+        .get("/api/articles?order=ASC")
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toBeSortedBy("created_at");
+        });
+    });
+    it("returns an array of articles ordered by ASC or DESC from the users query", () => {
+      return request(app)
+        .get("/api/articles?order=DESC")
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toBeSortedBy("created_at", { descending: true });
+        });
+    });
+    it("returns an array of articles ordered by ASC or DESC from the users query", () => {
+      return request(app)
+        .get("/api/articles?topic=cats")
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toBeInstanceOf(Array);
+          expect(res.body).toBeSortedBy("created_at", { descending: true });
+          expect(res.body).toEqual([
+            {
+              article_id: expect.any(Number),
+              title: "UNCOVERED: catspiracy to bring down democracy",
+              topic: "cats",
+              author: "rogersop",
+              created_at: expect.any(String),
+              votes: 0,
+              comment_count: expect.any(Number),
+            },
+          ]);
+        });
+    });
+  });
+
+  describe("UNHAPPY PATH", () => {
+    it("404: not found - if topic doesn't exist", () => {
+      return request(app)
+        .get("/api/articles?topic=iAmNotACat")
+        .expect(404)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "not found!" });
+        });
+    });
+    // THIS ONE IS CHEEKY BUT IT'S TECHNICALLY RIGHT, MAYBE?
+    it("200: OK - if topic key is invalid... Defaults to created_at DESC", () => {
+      return request(app)
+        .get("/api/articles?shmopic=defoNotaTopic")
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toBeSortedBy("created_at", { descending: true });
+        });
+    });
+  });
+});
