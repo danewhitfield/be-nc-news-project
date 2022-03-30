@@ -9,6 +9,7 @@ const {
 const { getTopics } = require("./controllers/topics.controller");
 const { getUsers } = require("./controllers/users.controller");
 const { getAPI } = require("./controllers/api.controller");
+const { deleteCommentById } = require("./controllers/comments.controller");
 const app = express();
 
 app.use(express.json());
@@ -26,6 +27,9 @@ app.patch("/api/articles/:article_id", updateVotesByArticleId);
 
 // POST
 app.post("/api/articles/:article_id/comments", postComment);
+
+// DELETE
+app.delete("/api/comments/:comment_id", deleteCommentById);
 
 // GENERIC HANDLER
 app.use((req, res, next) => {
