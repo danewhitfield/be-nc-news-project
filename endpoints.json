@@ -23,5 +23,166 @@
         }
       ]
     }
+  },
+  "GET /api/articles/:article_id": {
+    "description": "finds articles based on the article_id",
+    "ids": ["1", "2", "3", "4", "5", "6"],
+    "exampleResponse": {
+      "articles": [
+        {
+          "title": "Sony Vaio; or, The Laptop",
+          "topic": "mitch",
+          "author": "icellusedkars",
+          "body": "Call me Mitchell. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would buy a laptop about a little and see the codey part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to coding as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the laptop. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the the Vaio with me.",
+          "created_at": 1602828180000,
+          "votes": 0
+        }
+      ]
+    }
+  },
+  "PATCH /api/articles/:article_id": {
+    "description": "updates the vote count specific to the article_id",
+    "queries": ["article_id", "inc_votes = 26"],
+    "request-body": { "inc_votes": 26 },
+    "exampleResponse": {
+      "articles": [
+        {
+          "article_id": 1,
+          "title": "Living in the shadow of a great man",
+          "topic": "mitch",
+          "author": "butter_bridge",
+          "body": "I find this existence challenging",
+          "created_at": 17627563562,
+          "votes": "126 <<< was 100 before the patch"
+        }
+      ]
+    }
+  },
+  "GET /api/users": {
+    "description": "gets an array of users with their username",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "username": "butter_bridge"
+        },
+        {
+          "username": "icellusedkars"
+        },
+        {
+          "username": "rogersop"
+        },
+        {
+          "username": "lurker"
+        }
+      ]
+    }
+  },
+  "GET /api/articles/:article_id + comment_count": {
+    "description": "gets an article by it's ID and has a key of comment_count which has the sum of all comments for that article",
+    "queries": [],
+    "exampleResponse": {
+      "articles": [
+        {
+          "article_id": 1,
+          "title": "Living in the shadow of a great man",
+          "topic": "mitch",
+          "author": "butter_bridge",
+          "body": "I find this existence challenging",
+          "created_at": 167253271536,
+          "votes": 100,
+          "comment_count": 11
+        }
+      ]
+    }
+  },
+  "GET /api/articles updated": {
+    "description": "an array of articles with each having the extra comment_count - in descending order",
+    "queries": [],
+    "exampleResponse": {
+      "articles": [
+        {
+          "article_id": 1,
+          "title": "Living in the shadow of a great man",
+          "topic": "mitch",
+          "author": "butter_bridge",
+          "body": "I find this existence challenging",
+          "created_at": 167253271536,
+          "votes": 100,
+          "comment_count": 11
+        }
+      ]
+    }
+  },
+  "GET /api/articles/:article_id/comments": {
+    "description": "an array of comments for the given article_id of each comment",
+    "queries": ["article_id", "comments"],
+    "exampleResponse": {
+      "articles": [
+        {
+          "comment_id": 10,
+          "body": "git push origin master",
+          "article_id": 3,
+          "author": "icellusedkars",
+          "votes": 0,
+          "created_at": 12653472732
+        },
+        {
+          "comment_id": 11,
+          "body": "Ambidextrous marsupial",
+          "article_id": 3,
+          "author": "icellusedkars",
+          "votes": 0,
+          "created_at": 126534727765
+        }
+      ]
+    }
+  },
+  "POST /api/articles/:article_id/comments": {
+    "description": "accepts a username and comment body to add a new comment",
+    "queries": ["article_id", "comments"],
+    "request-body": {
+      "username": "icellusedkars",
+      "body": "My code is broken."
+    },
+    "exampleResponse": {
+      "articles": [
+        {
+          "comment_id": 19,
+          "body": "My code is broken.",
+          "article_id": 2,
+          "author": "icellusedkars",
+          "votes": 0,
+          "created_at": 1265734627
+        }
+      ]
+    }
+  },
+  "GET /api/articles?queries": {
+    "description": "accepts valid queries to sort_by, order and search topics",
+    "queries": ["sort_by", "order", "topic", "mitch", "cats", "paper", "/api/articles?order=ASC", "/api/articles?sort_by=votes", "/api/articles?topic=cats"],
+    "exampleResponse": {
+      "articles": [
+        {
+          "comment_id": 19,
+          "body": "My code is broken.",
+          "article_id": 2,
+          "author": "icellusedkars",
+          "votes": 0,
+          "created_at": 1265734627
+        }
+      ]
+    }
+  },
+  "DELETE /api/comments/:comment_id": {
+    "description": "deletes comments specific to the passed comment_id. responds with a 204 once the comment is deleted",
+    "queries": ["comment_id"],
+    "exampleResponse": {
+      "articles": [
+        {
+          "204": "no content"
+        }
+      ]
+    }
   }
 }
