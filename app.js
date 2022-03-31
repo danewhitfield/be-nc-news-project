@@ -1,36 +1,21 @@
 const express = require("express");
-const {
-  getArticleById,
-  updateVotesByArticleId,
-  postComment,
-  getArticles,
-  getComments,
-} = require("./controllers/articles.controller");
-const { getTopics } = require("./controllers/topics.controller");
-const { getUsers } = require("./controllers/users.controller");
-const { getAPI } = require("./controllers/api.controller");
-const { deleteCommentById } = require("./controllers/comments.controller");
-const app = express();
+const articlesRouter = require("./routes/articles-router");
+const commentsRouter = require("./routes/comments-router");
+const apiRouter = require("./routes/api-router");
+const topicsRouter = require("./routes/topics-router");
+const usersRouter = require("./routes/users-router");
 
+const app = express();
 app.use(express.json());
 
-// GET
-app.get("/api/topics", getTopics);
-app.get("/api/articles/:article_id", getArticleById);
-app.get("/api/users", getUsers);
-app.get("/api/articles", getArticles);
-app.get("/api/articles/:article_id/comments", getComments);
-app.get("/api", getAPI);
+// APP.USE ROUTERS
+app.use(articlesRouter);
+app.use(commentsRouter);
+app.use(apiRouter);
+app.use(topicsRouter);
+app.use(usersRouter);
 
-// PATCH
-app.patch("/api/articles/:article_id", updateVotesByArticleId);
-
-// POST
-app.post("/api/articles/:article_id/comments", postComment);
-
-// DELETE
-app.delete("/api/comments/:comment_id", deleteCommentById);
-
+// ERRORS
 // GENERIC HANDLER
 app.use((req, res, next) => {
   res.status(404).send({ msg: "not found!" });
@@ -63,11 +48,6 @@ app.use((err, req, res, next) => {
   console.log(err);
   next(err);
 });
-
-// app.use((err, req, res, next) => {
-//   res.status(400).send({ msg: "bad request!" });
-//   next(err);
-// });
 
 // DEFAULT
 app.use((err, req, res, next) => {
