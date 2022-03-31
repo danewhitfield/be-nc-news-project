@@ -1,10 +1,22 @@
 # **NC News**
 
 ### You Can Find My App Here: 
-##### https://shrelington-news.herokuapp.com/
+##### https://shrelington-news.herokuapp.com/api
 ----
 ### What Does This App Do?
 The Shrelington-news app is a RESTFUL API and it is designed to respond to users with their desired endpoints & queries. The app consists of articles, comments, users and topics. You can use endpoints such as ```/api/articles``` to get all articles. Or more complex endpoints like ```/api/articles/:article_id/comments``` to get the comments from a specific article_id.
+<br>
+Another example - add users by doing a POST request to `/api/users` - there are a mandatory username and name field, and an optional avatar_url:
+```
+{
+  "username": "yourUsername",
+  "name": "your name",
+  "avatar_url": "youCanLeaveMeBlank"
+}
+```
+_HINT: username and name fields must be of string type!_
+
+If you would like to interact with the API for POST, PATCH and DELETE request I would recommend using [insomnia](https://insomnia.rest/download) or [postman](https://www.postman.com/downloads/)
 
 ----
 
