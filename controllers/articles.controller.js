@@ -41,9 +41,14 @@ const getArticles = (req, res, next) => {
 
 const getComments = (req, res, next) => {
   const { article_id } = req.params;
-  findComments(article_id)
-    .then((comments) => {
-      res.status(200).send(comments);
+
+  const promises = [findComments(article_id)];
+  if (article_id) promises.push(findArticleById(article_id));
+
+  Promise.all(promises)
+    .then((result) => {
+      const comments = result[0];
+      res.status(200).send({ comments });
     })
     .catch((err) => {
       next(err);

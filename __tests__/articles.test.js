@@ -196,26 +196,28 @@ describe("GET /api/articles", () => {
           .get("/api/articles/3/comments")
           .expect(200)
           .then((res) => {
-            const comments = [
-              {
-                comment_id: 10,
-                body: "git push origin master",
-                article_id: 3,
-                author: "icellusedkars",
-                votes: 0,
-                created_at: expect.any(String),
-              },
-              {
-                comment_id: 11,
-                body: "Ambidextrous marsupial",
-                article_id: 3,
-                author: "icellusedkars",
-                votes: 0,
-                created_at: expect.any(String),
-              },
-            ];
+            res.body.comments.forEach((comment) => {
+              expect(comment).toEqual(
+                expect.objectContaining({
+                  comment_id: expect.any(Number),
+                  body: expect.any(String),
+                  article_id: expect.any(Number),
+                  author: expect.any(String),
+                  votes: expect.any(Number),
+                  created_at: expect.any(String),
+                })
+              );
+            });
 
-            expect(res.body).toMatchObject(comments);
+            expect(res.body.comments).toBeInstanceOf(Array);
+          });
+      });
+      it("returns an empty array if no comments are found", () => {
+        return request(app)
+          .get("/api/articles/2/comments")
+          .expect(200)
+          .then((res) => {
+            expect(res.body.comments).toEqual([]);
           });
       });
     });
