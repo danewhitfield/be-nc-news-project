@@ -1,4 +1,4 @@
-# **NC News**
+![Shrelington_News (1)](https://user-images.githubusercontent.com/80724506/161143477-2ce7a84f-b957-4e8b-a363-b041c4449f1a.png)
 
 ### You Can Find My App Here: 
 ##### https://shrelington-news.herokuapp.com/api
@@ -7,13 +7,9 @@
 The Shrelington-news app is a RESTFUL API and it is designed to respond to users with their desired endpoints & queries. The app consists of articles, comments, users and topics. You can use endpoints such as ```/api/articles``` to get all articles. Or more complex endpoints like ```/api/articles/:article_id/comments``` to get the comments from a specific article_id.
 <br>
 Another example - add users by doing a POST request to `/api/users` - there are a mandatory username and name field, and an optional avatar_url:
-```
-{
-  "username": "yourUsername",
-  "name": "your name",
-  "avatar_url": "youCanLeaveMeBlank"
-}
-```
+<br>
+![carbon (1)](https://user-images.githubusercontent.com/80724506/161145402-0972aa45-6776-4268-b7c7-d4fb1dc5ca4e.svg)
+
 _HINT: username and name fields must be of string type!_
 
 If you would like to interact with the API for POST, PATCH and DELETE request I would recommend using [insomnia](https://insomnia.rest/download) or [postman](https://www.postman.com/downloads/)
@@ -26,7 +22,7 @@ To get started you can clone this repo by forking it and using your forked repo'
 https://github.com/danewhitfield/be-nc-news-project.git
 ```
 ----
-### **Install**
+### **Install Dependencies**
 You can install all dependencies by running:
 ```
 npm install
@@ -43,6 +39,8 @@ After, your terminal should look like one of the following:
 ! if yellow - ignore it ever happened and move on...
 # disclaimer - I refuse liability for you ignoring the yellow.
 ```
+_There will be a list of all dependencies and devDependencies at the bottom of this README - in case you're interested_
+
 ----
 ### SEED Your DATABASE
 in the ```package.json``` file you'll see:
