@@ -73,3 +73,61 @@ describe("GET /api/users/:username", () => {
     });
   });
 });
+
+describe.only("POST /api/users", () => {
+  describe("HAPPY PATH", () => {
+    it("returns the new user that has been created", () => {
+      return request(app)
+        .post("/api/users")
+        .send({
+          username: "danewhitfield",
+          name: "dane",
+          avatar_url: "https://www.google.com/cats",
+        })
+        .expect(201)
+        .then((res) => {
+          const user = {
+            username: expect.any(String),
+            name: expect.any(String),
+            avatar_url: expect.any(String),
+          };
+
+          expect(res.body).toMatchObject({ user });
+        });
+    });
+  });
+
+  describe("UNHAPPY PATH", () => {
+    it("400: bad request - if the username or name fields are left blank", () => {
+      return request(app)
+        .post("/api/users")
+        .send({ username: "123" })
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({
+            msg: "username and name fields are required!",
+          });
+        });
+    });
+    it("400: bad request - if user leaves the req.body empty", () => {
+      return request(app)
+        .post("/api/users")
+        .send({})
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({
+            msg: "username and name fields are required!",
+          });
+        });
+    });
+    it("400: bad request - if user passes numbers instead of strings", () => {
+      return request(app)
+        .post("/api/users")
+        .send({ username: 832742, name: 7264238 })
+        .expect(400)
+        .then((res) => {
+          expect(res.body).toMatchObject({ msg: "invalid username or name!" });
+        });
+    });
+  });
+});
