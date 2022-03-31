@@ -4,7 +4,7 @@
 ##### https://shrelington-news.herokuapp.com/
 ----
 ### What Does This App Do?
-Primarily - the Shrelington-news app is designed to respond to users with their desired endpoints & queries. At the moment the app consists of articles, comments, users and topics. You can use endpoints such as ```/api/articles``` to get all articles. Or more complex endpoints like ```/api/articles/:article_id/comments``` to get the comments from a specific article_id.
+The Shrelington-news app is a RESTFUL API and it is designed to respond to users with their desired endpoints & queries. The app consists of articles, comments, users and topics. You can use endpoints such as ```/api/articles``` to get all articles. Or more complex endpoints like ```/api/articles/:article_id/comments``` to get the comments from a specific article_id.
 
 ----
 
@@ -24,7 +24,7 @@ OR:
 ```
 npm i
 ```
-
+After, your terminal should look like one of the following:
 ```diff
 + if green - you're good to go!
 - if red - you need to troubleshoot :(
@@ -55,6 +55,7 @@ If you want to just run all of your test suites at once then you don't have to s
 ```
 npm t
 ```
+#### OPTIONAL...  _jest flags are not detrimental to the project working and are purely personal preference_
 There's a bunch of flags for jest that are useful (find them here: [jest docs](https://jestjs.io/docs/getting-started)). But here's some I like to use:
 ```
 jest --watchAll <<< this auto runs your tests every time you save a file.
