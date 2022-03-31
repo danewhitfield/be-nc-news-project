@@ -32,9 +32,24 @@ exports.findArticles = async (
   order = "DESC",
   topic
 ) => {
-  const validSortBy = ["created_at", "article_id", "votes", "title"];
+  const validSortBy = [
+    "created_at",
+    "article_id",
+    "votes",
+    "title",
+    "body",
+    "author",
+    "topic",
+  ];
   const validOrder = ["asc", "desc", "ASC", "DESC"];
-  const validTopics = ["mitch", "cats", "paper"];
+  const validTopics = [
+    "mitch",
+    "cats",
+    "paper",
+    "coding",
+    "football",
+    "cooking",
+  ];
 
   if (!validSortBy.includes(sort_by) || !validOrder.includes(order)) {
     return Promise.reject({ status: 400, msg: "bad request!" });
