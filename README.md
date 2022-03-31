@@ -73,6 +73,16 @@ To setup your environments you need to create 2 files:
 ```
 .env.development
 ```
+**These should contain the following**
+<br>
+_.env.test file:_
+```
+PGDATABSE=nc_news_test
+```
+_.env.development file:_
+```
+PGDATABSE=nc_news
+```
 
 These need to be added to your **_.gitignore_** if not already.
 
