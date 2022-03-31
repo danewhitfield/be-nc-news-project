@@ -6,7 +6,7 @@ const {
   findComments,
 } = require("../models/articles.model");
 
-exports.getArticleById = (req, res, next) => {
+const getArticleById = (req, res, next) => {
   const { article_id } = req.params;
   findArticleById(article_id)
     .then((article) => {
@@ -15,7 +15,7 @@ exports.getArticleById = (req, res, next) => {
     .catch(next);
 };
 
-exports.updateVotesByArticleId = (req, res, next) => {
+const updateVotesByArticleId = (req, res, next) => {
   const { article_id } = req.params;
   const { inc_votes } = req.body;
   changeVotesByArticleId(article_id, inc_votes)
@@ -27,7 +27,7 @@ exports.updateVotesByArticleId = (req, res, next) => {
     });
 };
 
-exports.getArticles = (req, res, next) => {
+const getArticles = (req, res, next) => {
   const { sort_by, order, topic } = req.query;
 
   findArticles(sort_by, order, topic)
@@ -39,7 +39,7 @@ exports.getArticles = (req, res, next) => {
     });
 };
 
-exports.getComments = (req, res, next) => {
+const getComments = (req, res, next) => {
   const { article_id } = req.params;
   findComments(article_id)
     .then((comments) => {
@@ -50,7 +50,7 @@ exports.getComments = (req, res, next) => {
     });
 };
 
-exports.postComment = (req, res, next) => {
+const postComment = (req, res, next) => {
   const { username, body } = req.body;
   const { article_id } = req.params;
   createComment(article_id, username, body)
@@ -60,4 +60,12 @@ exports.postComment = (req, res, next) => {
     .catch((err) => {
       next(err);
     });
+};
+
+module.exports = {
+  getArticleById,
+  updateVotesByArticleId,
+  getArticles,
+  getComments,
+  postComment,
 };
