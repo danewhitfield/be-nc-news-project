@@ -107,3 +107,6 @@ Postgres Version:
 psql -V | 12.9
 ```
 To find out what version you're running you can use ```node -v``` and ```psql -V```
+
+----
+_Credits: Dane Whitfield &copy;_ 
