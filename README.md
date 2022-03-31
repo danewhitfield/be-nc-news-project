@@ -1,6 +1,20 @@
 # **NC News**
 
-## **Install**
+### You Can Find My App Here: 
+##### https://shrelington-news.herokuapp.com/
+----
+### What Does This App Do?
+Primarily - the Shrelington-news app is designed to respond to users with their desired endpoints & queries. At the moment the app consists of articles, comments, users and topics. You can use endpoints such as ```/api/articles``` to get all articles. Or more complex endpoints like ```/api/articles/:article_id/comments``` to get the comments from a specific article_id.
+
+----
+
+### Get Started
+To get started you can clone this repo by forking it and using your forked repo's clone url OR clone directly from this repo using:
+```
+https://github.com/danewhitfield/be-nc-news-project.git
+```
+----
+### **Install**
 You can install all dependencies by running:
 ```
 npm install
@@ -17,8 +31,37 @@ npm i
 ! if yellow - ignore it ever happened and move on...
 # disclaimer - I refuse liability for you ignoring the yellow.
 ```
-
-## **.ENV**
+----
+### SEED Your DATABASE
+in the ```package.json``` file you'll see:
+```
+"seed": "node ./db/seeds/run-seed.js"
+```
+You can run this script by using:
+```
+npm run seed
+```
+----
+### Running Your Tests
+Of course - we need to check that our code is working and there's no better way to do that other than to run some tests! The ```npm i``` we ran earlier will have taken care of installing ```jest``` for us. We will be using jest for our TDD. To run these tests use:
+```
+npm test your-file-name
+```
+OR a nice shorthand is:
+```
+npm t your-file-name
+```
+If you want to just run all of your test suites at once then you don't have to specify the file name:
+```
+npm t
+```
+There's a bunch of flags for jest that are useful (find them here: [jest docs](https://jestjs.io/docs/getting-started)). But here's some I like to use:
+```
+jest --watchAll <<< this auto runs your tests every time you save a file.
+jest --verbose <<< displays individual test results with the test suite hierarchy.
+```
+----
+### **.ENV**
 
 To setup your environments you need to create 2 files:
 
@@ -31,3 +74,15 @@ To setup your environments you need to create 2 files:
 ```
 
 These need to be added to your **_.gitignore_** if not already.
+
+----
+### Recommended Version Requirements For Node & Postgres
+This app was made on Node Version:
+```
+node -v | v17.7.1
+```
+Postgres Version:
+```
+psql -V | 12.9
+```
+To find out what version you're running you can use ```node -v``` and ```psql -V```
