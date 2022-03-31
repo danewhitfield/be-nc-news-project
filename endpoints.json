@@ -1,16 +1,16 @@
 {
   "GET /api": {
-    "description": "serves up a json representation of all the available endpoints of the api"
+    "description": "serves up a json representation of all the available endpoints of the api. You can use this enpoint as your index reference 📇"
   },
   "GET /api/topics": {
-    "description": "serves an array of all topics",
+    "description": "provides an array of all topics 👇",
     "queries": [],
     "exampleResponse": {
-      "topics": [{ "slug": "football", "description": "Footie!" }]
+      "topics": [{ "slug": "football", "description": "Footie!" }, { "slug": "coding", "description": "Coding!" }]
     }
   },
   "GET /api/articles": {
-    "description": "serves an array of all topics",
+    "description": "provides an array of all topics 🌍",
     "queries": ["author", "topic", "sort_by", "order"],
     "exampleResponse": {
       "articles": [
@@ -25,7 +25,7 @@
     }
   },
   "GET /api/articles/:article_id": {
-    "description": "finds articles based on the article_id",
+    "description": "finds articles based on the article_id 🔍",
     "ids": ["1", "2", "3", "4", "5", "6"],
     "exampleResponse": {
       "articles": [
@@ -41,7 +41,7 @@
     }
   },
   "PATCH /api/articles/:article_id": {
-    "description": "updates the vote count specific to the article_id",
+    "description": "updates the vote count specific to the article_id 🆕",
     "queries": ["article_id", "inc_votes = 26"],
     "request-body": { "inc_votes": 26 },
     "exampleResponse": {
@@ -59,7 +59,7 @@
     }
   },
   "GET /api/users": {
-    "description": "gets an array of users with their username",
+    "description": "gets an array of users with their username 👤",
     "queries": [],
     "exampleResponse": {
       "users": [
@@ -79,7 +79,7 @@
     }
   },
   "GET /api/articles/:article_id + comment_count": {
-    "description": "gets an article by it's ID and has a key of comment_count which has the sum of all comments for that article",
+    "description": "gets an article by it's ID and has a key of comment_count which has the sum of all comments for that article 🧮",
     "queries": [],
     "exampleResponse": {
       "articles": [
@@ -97,7 +97,7 @@
     }
   },
   "GET /api/articles updated": {
-    "description": "an array of articles with each having the extra comment_count - in descending order",
+    "description": "an array of articles with each having the extra comment_count - in descending order 🔠",
     "queries": [],
     "exampleResponse": {
       "articles": [
@@ -115,7 +115,7 @@
     }
   },
   "GET /api/articles/:article_id/comments": {
-    "description": "an array of comments for the given article_id of each comment",
+    "description": "an array of comments for the given article_id of each comment 💬",
     "queries": ["article_id", "comments"],
     "exampleResponse": {
       "articles": [
@@ -139,7 +139,7 @@
     }
   },
   "POST /api/articles/:article_id/comments": {
-    "description": "accepts a username and comment body to add a new comment",
+    "description": "accepts a username and comment body to add a new comment ✅",
     "queries": ["article_id", "comments"],
     "request-body": {
       "username": "icellusedkars",
@@ -159,7 +159,7 @@
     }
   },
   "GET /api/articles?queries": {
-    "description": "accepts valid queries to sort_by, order and search topics",
+    "description": "accepts valid queries to sort_by, order and search topics 💡",
     "queries": ["sort_by", "order", "topic", "mitch", "cats", "paper", "/api/articles?order=ASC", "/api/articles?sort_by=votes", "/api/articles?topic=cats"],
     "exampleResponse": {
       "articles": [
@@ -175,7 +175,7 @@
     }
   },
   "DELETE /api/comments/:comment_id": {
-    "description": "deletes comments specific to the passed comment_id. responds with a 204 once the comment is deleted",
+    "description": "deletes comments specific to the passed comment_id. responds with a 204 once the comment is deleted ❌",
     "queries": ["comment_id"],
     "exampleResponse": {
       "articles": [
