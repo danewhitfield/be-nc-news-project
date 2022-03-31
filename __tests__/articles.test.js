@@ -299,21 +299,15 @@ describe("GET /api/articles?queries", () => {
         },
       ]);
     });
-  });
-
-  describe("UNHAPPY PATH", () => {
-    it("404: not found - if topic doesn't exist", async () => {
-      const res = await request(app)
-        .get("/api/articles?topic=iAmNotACat")
-        .expect(404);
-      expect(res.body).toMatchObject({ msg: "not found!" });
-    });
-    // THIS ONE IS CHEEKY BUT IT'S TECHNICALLY RIGHT, MAYBE?
-    it("200: OK - if topic key is invalid... Defaults to created_at DESC", async () => {
-      const res = await request(app)
-        .get("/api/articles?shmopic=defoNotaTopic")
-        .expect(200);
-      expect(res.body).toBeSortedBy("created_at", { descending: true });
+    test("200: returns an array of article objects filtered by a chosen topic", () => {
+      return request(app)
+        .get("/api/articles?topic=cats")
+        .expect(200)
+        .then((res) => {
+          res.body.forEach((article) => {
+            expect(article.topic).toBe("cats");
+          });
+        });
     });
   });
 });

@@ -42,21 +42,9 @@ exports.findArticles = async (
     "topic",
   ];
   const validOrder = ["asc", "desc", "ASC", "DESC"];
-  const validTopics = [
-    "mitch",
-    "cats",
-    "paper",
-    "coding",
-    "football",
-    "cooking",
-  ];
 
   if (!validSortBy.includes(sort_by) || !validOrder.includes(order)) {
     return Promise.reject({ status: 400, msg: "bad request!" });
-  }
-
-  if (topic && !validTopics.includes(topic)) {
-    return Promise.reject({ status: 404, msg: "not found!" });
   }
 
   let queryStr = `SELECT articles.article_id, articles.title, articles.author, articles.topic, articles.created_at, articles.votes, COUNT(comments.comment_id)::INT AS comment_count FROM articles
@@ -65,9 +53,9 @@ exports.findArticles = async (
   `;
   const queryVals = [];
 
-  if (topic) {
+  if (topic !== undefined) {
     queryStr += `WHERE topic = $1`;
-    queryVals.unshift(topic);
+    queryVals.push(topic);
   }
 
   queryStr += `GROUP BY articles.article_id ORDER BY ${sort_by} ${order};`;
