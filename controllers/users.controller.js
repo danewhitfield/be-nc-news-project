@@ -35,7 +35,6 @@ exports.deleteUserByUsername = (req, res, next) => {
   const { username } = req.params;
   removeUserByUsername(username)
     .then((user) => {
-      console.log("user:", user);
       res.status(204).send(user);
     })
     .catch((err) => {
