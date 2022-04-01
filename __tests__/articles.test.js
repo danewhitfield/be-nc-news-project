@@ -267,12 +267,12 @@ describe("GET /api/articles?queries", () => {
     });
     it("returns an array of articles with a sort_by query which works for any valid column defaulting to descending", async () => {
       const res = await request(app)
-        .get("/api/articles?sort_by=article_id")
+        .get("/api/articles?sort_by=ARTICLE_ID")
         .expect(200);
       expect(res.body).toBeSortedBy("article_id", { descending: true });
     });
     it("returns an array of articles ordered by ASC or DESC from the users query", async () => {
-      const res = await request(app).get("/api/articles?order=ASC").expect(200);
+      const res = await request(app).get("/api/articles?order=asc").expect(200);
       expect(res.body).toBeSortedBy("created_at");
     });
     it("returns an array of articles ordered by ASC or DESC from the users query", async () => {
@@ -281,9 +281,9 @@ describe("GET /api/articles?queries", () => {
         .expect(200);
       expect(res.body).toBeSortedBy("created_at", { descending: true });
     });
-    it("returns an array of articles ordered by ASC or DESC from the users query", async () => {
+    it("returns an array of articles from the users topic query, case-insensitive", async () => {
       const res = await request(app)
-        .get("/api/articles?topic=cats")
+        .get("/api/articles?topic=cAtS")
         .expect(200);
       expect(res.body).toBeInstanceOf(Array);
       expect(res.body).toBeSortedBy("created_at", { descending: true });
@@ -299,15 +299,13 @@ describe("GET /api/articles?queries", () => {
         },
       ]);
     });
-    test("200: returns an array of article objects filtered by a chosen topic", () => {
-      return request(app)
+    test("200: returns an array of article objects filtered by a chosen topic", async () => {
+      const res = await request(app)
         .get("/api/articles?topic=cats")
-        .expect(200)
-        .then((res) => {
-          res.body.forEach((article) => {
-            expect(article.topic).toBe("cats");
-          });
-        });
+        .expect(200);
+      res.body.forEach((article) => {
+        expect(article.topic).toBe("cats");
+      });
     });
   });
 });

@@ -74,7 +74,7 @@ describe("GET /api/users/:username", () => {
   });
 });
 
-describe.only("POST /api/users", () => {
+describe("POST /api/users", () => {
   describe("HAPPY PATH", () => {
     it("returns the new user that has been created", () => {
       return request(app)

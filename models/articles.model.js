@@ -32,6 +32,10 @@ exports.findArticles = async (
   order = "DESC",
   topic
 ) => {
+  order = order.toUpperCase();
+  sort_by = sort_by.toLowerCase();
+
+  // VALIDATION
   const validSortBy = [
     "created_at",
     "article_id",
@@ -41,12 +45,13 @@ exports.findArticles = async (
     "author",
     "topic",
   ];
-  const validOrder = ["asc", "desc", "ASC", "DESC"];
+  const validOrder = ["ASC", "DESC"];
 
   if (!validSortBy.includes(sort_by) || !validOrder.includes(order)) {
     return Promise.reject({ status: 400, msg: "bad request!" });
   }
 
+  // QUERY
   let queryStr = `SELECT articles.article_id, articles.title, articles.author, articles.topic, articles.created_at, articles.votes, COUNT(comments.comment_id)::INT AS comment_count FROM articles
   JOIN comments 
   ON comments.article_id = articles.article_id
@@ -55,6 +60,7 @@ exports.findArticles = async (
 
   if (topic !== undefined) {
     queryStr += `WHERE topic = $1`;
+    topic = topic.toLowerCase();
     queryVals.push(topic);
   }
 
