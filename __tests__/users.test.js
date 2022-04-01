@@ -135,7 +135,7 @@ describe("POST /api/users", () => {
 describe("DELETE /api/users/username", () => {
   describe("HAPPY PATH", () => {
     it("delete the given user by their username", () => {
-      return request(app).delete("/api/users/danewhitfield").expect(204);
+      return request(app).delete("/api/users/lurker").expect(204);
     });
   });
 
