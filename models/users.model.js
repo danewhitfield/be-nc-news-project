@@ -48,3 +48,12 @@ exports.addNewUser = (username, name, avatar_url) => {
       return result.rows[0];
     });
 };
+
+exports.removeUserByUsername = (username) => {
+  console.log("username:", username);
+  return db
+    .query(`DELETE FROM users WHERE username = $1 RETURNING *;`, [username])
+    .then((result) => {
+      return result.rows[0];
+    });
+};

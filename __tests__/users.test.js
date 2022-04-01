@@ -131,3 +131,22 @@ describe("POST /api/users", () => {
     });
   });
 });
+
+describe("DELETE /api/users/username", () => {
+  describe("HAPPY PATH", () => {
+    it("delete the given user by their username", () => {
+      return request(app).delete("/api/users/danewhitfield").expect(204);
+    });
+  });
+
+  // describe("UNHAPPY PATH", () => {
+  //   it("404: not found - if username doesn't exist", () => {
+  //     return request(app)
+  //       .delete("/api/users/shmaneshmitshmield")
+  //       .expect(404)
+  //       .then((res) => {
+  //         expect(res.body).toMatchObject({ msg: "not found!" });
+  //       });
+  //   });
+  // });
+});
