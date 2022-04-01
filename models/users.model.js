@@ -50,7 +50,6 @@ exports.addNewUser = (username, name, avatar_url) => {
 };
 
 exports.removeUserByUsername = (username) => {
-  console.log("username:", username);
   return db
     .query(`DELETE FROM users WHERE username = $1 RETURNING *;`, [username])
     .then((result) => {
