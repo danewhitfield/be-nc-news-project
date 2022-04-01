@@ -31,12 +31,15 @@ const createTables = async () => {
   CREATE TABLE comments (
     comment_id SERIAL PRIMARY KEY,
     body VARCHAR NOT NULL,
-    article_id INT NOT NULL REFERENCES articles(article_id) ON DELETE CASCADE,
-    author VARCHAR NOT NULL REFERENCES users(username) ON DELETE CASCADE,
+    article_id INT REFERENCES articles(article_id) NOT NULL,
+    author VARCHAR REFERENCES users(username) NOT NULL,
     votes INT DEFAULT 0 NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
   );`);
 };
+
+// article_id INT REFERENCES articles(article_id) NOT NULL ON DELETE CASCADE,
+//     author VARCHAR REFERENCES users(username) NOT NULL ON DELETE CASCADE,
 
 const dropTables = async () => {
   await db.query(`DROP TABLE IF EXISTS comments;`);
