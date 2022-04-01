@@ -309,3 +309,30 @@ describe("GET /api/articles?queries", () => {
     });
   });
 });
+
+// POST ARTICLE
+// describe("POST /api/articles", () => {
+//   describe("HAPPY PATH", () => {
+//     it("returns the new article", () => {
+//       return request(app)
+//         .post("/api/articles")
+//         .expect(201)
+//         .send({
+//           title: "How not to write JavaScript",
+//           author: "danewhitfield",
+//           topic: "coding",
+//           body: "This is the body for my article",
+//         })
+//         .then((res) => {
+//           const newArticle = {
+//             title: "How not to write JavaScript",
+//             author: "danewhitfield",
+//             topic: "coding",
+//             body: "This is the body for my article",
+//           };
+//           // expect(res.body).toBeInstanceOf(Array);
+//           expect(res.body).toMatchObject({ newArticle });
+//         });
+//     });
+//   });
+// });

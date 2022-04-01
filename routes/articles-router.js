@@ -23,5 +23,6 @@ articlesRouter.post(
   "/api/articles/:article_id/comments",
   articlesController.postComment
 );
+// articlesRouter.post("/api/articles", articlesController.createArticle);
 
 module.exports = articlesRouter;

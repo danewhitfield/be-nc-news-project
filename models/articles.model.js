@@ -96,3 +96,24 @@ exports.createComment = async (article_id, username, body) => {
   }
   return result.rows[0];
 };
+
+// ADD NEW ARTICLE
+// exports.addNewArticle = (title, author, topic, body) => {
+//   // ALTER TABLE articles
+//   // DROP CONSTRAINT articles_topic_fkey,
+//   // ADD CONSTRAINT articles_topic_fkey;
+//   return db
+//     .query(
+//       `
+//   INSERT INTO articles
+//   (title, topic, author, body)
+//   VALUES
+//   ($1, $2, $3, $4)
+//   RETURNING *;`,
+//       [title, author, topic, body]
+//     )
+//     .then((result) => {
+//       console.log("result:", result.rows);
+//       return result.rows[0];
+//     });
+// };

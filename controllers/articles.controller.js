@@ -4,6 +4,7 @@ const {
   createComment,
   findArticles,
   findComments,
+  addNewArticle,
 } = require("../models/articles.model");
 
 exports.getArticleById = (req, res, next) => {
@@ -65,3 +66,13 @@ exports.postComment = (req, res, next) => {
       next(err);
     });
 };
+
+// ADD NEW ARTICLE
+// exports.createArticle = (req, res, next) => {
+//   console.log("req:", req.body);
+//   const { title, author, topic, body } = req.body;
+//   addNewArticle(title, author, topic, body).then((newArticle) => {
+//     console.log("newArticle:", newArticle);
+//     res.status(201).send(newArticle);
+//   });
+// };

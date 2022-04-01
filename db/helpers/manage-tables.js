@@ -38,8 +38,9 @@ const createTables = async () => {
   );`);
 };
 
+// replace the above with these when we want to add the delete functionality to /ap/users/:username
 // article_id INT REFERENCES articles(article_id) NOT NULL ON DELETE CASCADE,
-//     author VARCHAR REFERENCES users(username) NOT NULL ON DELETE CASCADE,
+// author VARCHAR REFERENCES users(username) NOT NULL ON DELETE CASCADE,
 
 const dropTables = async () => {
   await db.query(`DROP TABLE IF EXISTS comments;`);
