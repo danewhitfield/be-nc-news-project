@@ -109,4 +109,4 @@ psql -V | 12.9
 To find out what version you're running you can use ```node -v``` and ```psql -V```
 
 ----
-_Credits: [Dane Whitfield](https://www.linkedin.com/in/danewhitfield/)&copy;_ 
+_Credits: [Dane Whitfield&copy;](https://www.linkedin.com/in/danewhitfield/)_ 
