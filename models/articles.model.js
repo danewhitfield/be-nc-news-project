@@ -44,6 +44,7 @@ exports.findArticles = async (
     "body",
     "author",
     "topic",
+    "comment_count"
   ];
   const validOrder = ["ASC", "DESC"];
 
