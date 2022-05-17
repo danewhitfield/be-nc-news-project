@@ -58,26 +58,6 @@
       ]
     }
   },
-  "GET /api/users": {
-    "description": "gets an array of users with their username 👤",
-    "queries": [],
-    "exampleResponse": {
-      "users": [
-        {
-          "username": "butter_bridge"
-        },
-        {
-          "username": "icellusedkars"
-        },
-        {
-          "username": "rogersop"
-        },
-        {
-          "username": "lurker"
-        }
-      ]
-    }
-  },
   "GET /api/articles/:article_id/comments": {
     "description": "an array of comments for the given article_id of each comment 💬",
     "queries": [],
@@ -148,5 +128,42 @@
         }
       ]
     }
+  },
+  "GET /api/users": {
+    "description": "gets an array of users with their username 👤",
+    "queries": [],
+    "exampleResponse": {
+      "users": [
+        {
+          "username": "butter_bridge"
+        },
+        {
+          "username": "icellusedkars"
+        },
+        {
+          "username": "rogersop"
+        },
+        {
+          "username": "lurker"
+        }
+      ]
+    }
+  },
+  "POST /api/users": {
+    "description": "enables the user to create a new user 👤",
+    "queries": [],
+    "request-body": {
+      "username": "yourUsername",
+      "avatarUrl": "http://someimage.com"
+    },
+    "exampleResponse": {
+      "users": [
+        {
+          "username": "yourUsername",
+          "avatarUrl": "http://someimage.com"
+        }
+      ]
+    }
   }
 }
+
